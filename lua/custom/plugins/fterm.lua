@@ -5,7 +5,7 @@ return {
     require 'FTerm'.setup {
       ft         = 'FTerm',
       border     = 'single',
-      --cmd        = os.getenv('SHELL'),
+      cmd        = os.getenv('SHELL'),
       auto_close = false,
       hl         = 'Normal',
       blend      = 0,

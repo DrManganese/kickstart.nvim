@@ -337,7 +337,7 @@ vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
     ensure_installed = { 'go', 'lua', 'python', 'rust', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'jsonc',
-      'html', 'json', 'http', 'markdown' },
+      'html', 'json', 'http', 'markdown', 'sql' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
@@ -477,6 +477,7 @@ require('mason-lspconfig').setup()
 --  define the property 'filetypes' to the map in question.
 local servers = {
   pyright = {},
+  ruff_lsp = {},
   rust_analyzer = {},
   marksman = {},
   lua_ls = {

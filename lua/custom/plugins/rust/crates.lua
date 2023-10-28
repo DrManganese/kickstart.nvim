@@ -3,6 +3,8 @@ return {
   "saecki/crates.nvim",
   event = { "BufRead Cargo.toml" },
   config = function()
-    require('crates').setup()
+    require('crates').setup {
+      enable_update_available_warning = false,
+    }
   end,
 }

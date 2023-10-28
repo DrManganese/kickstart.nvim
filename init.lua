@@ -521,7 +521,20 @@ mason_lspconfig.setup_handlers {
           vim.keymap.set('n', '<Leader>ca', require('rust-tools').code_action_group.code_action_group,
             { buffer = bufnr, remap = true })
         end,
-        settings = {},
+        settings = {
+          ['rust-analyzer'] = {
+            checkOnSave = {
+              command = 'clippy',
+              extraArgs = {
+                '--',
+                '-W', 'clippy::pedantic',
+                '-A', 'clippy::missing_panics_doc',
+                '-A', 'clippy::missing_errors_doc',
+                '-A', 'clippy::module_name_repititions'
+              }
+            }
+          }
+        },
         filetypes = {},
       },
     }

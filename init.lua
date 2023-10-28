@@ -93,7 +93,13 @@ require('lazy').setup({
       'folke/neodev.nvim',
     },
   },
-
+  {
+    -- Rust tools
+    'simrat39/rust-tools.nvim',
+    dependencies = {
+      'neovim/nvim-lspconfig'
+    },
+  },
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -503,8 +509,23 @@ mason_lspconfig.setup_handlers {
       filetypes = (servers[server_name] or {}).filetypes,
     }
   end,
-  -- lua/custom/plugins/rust/rust-tools.lua sets up the lsp for Rust
-  ['rust_analyzer'] = function() end,
+  -- set up rust-tools instead of vanilla rust_analyzer
+  ['rust_analyzer'] = function()
+    require('rust-tools').setup {
+      server = {
+        capabilities = capabilities,
+        on_attach = function(_, bufnr)
+          on_attach(nil, bufnr)
+          vim.keymap.set('n', '<C-space>', require('rust-tools').hover_actions.hover_actions,
+            { buffer = bufnr, remap = true })
+          vim.keymap.set('n', '<Leader>ca', require('rust-tools').code_action_group.code_action_group,
+            { buffer = bufnr, remap = true })
+        end,
+        settings = {},
+        filetypes = {},
+      },
+    }
+  end,
 }
 
 -- [[ Configure nvim-cmp ]]

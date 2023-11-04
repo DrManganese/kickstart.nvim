@@ -1,8 +1,9 @@
 return {
-  "numToStr/FTerm.nvim",
+  'numToStr/FTerm.nvim',
   -- FTerm
   config = function()
-    require 'FTerm'.setup {
+    local fterm = require('FTerm')
+    fterm.setup {
       ft         = 'FTerm',
       border     = 'single',
       cmd        = os.getenv('SHELL'),
@@ -16,12 +17,11 @@ return {
         y = 0.5,
       },
       clear_env  = false,
-      --env        = nil,
-      --on_exit    = nil,
-      --on_stdout  = nil,
-      --on_stderr  = nil
     }
-    vim.keymap.set('n', 't', '<CMD>lua require("FTerm").toggle()<CR>')
-    vim.keymap.set('t', '<Esc>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+    vim.keymap.set('n', 't', fterm.toggle)
+    vim.keymap.set('t', '<Esc>', fterm.toggle)
+    vim.api.nvim_create_user_command('CargoMachete', function()
+      fterm.scratch({ cmd = { 'cargo', 'machete' } })
+    end, { bang = true })
   end,
 }
